@@ -14,7 +14,7 @@ var testReportImplExamples = []struct {
 	{
 		report{
 			addr:    &w84.EndPoint{"tcp", "example.com:80"},
-			err:     errors.New("Connection failed."),
+			err:     errors.New("connection failed"),
 			updated: time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC),
 		},
 	},

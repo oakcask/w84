@@ -9,10 +9,10 @@ import (
 	"github.com/oakcask/w84"
 )
 
-var notStartedError = errors.New("Timeout exceeded (perhaps you set timeout too short. hou about making it longer?).")
+var errNotStarted = errors.New("timeout exceeded (perhaps you set timeout too short. hou about making it longer)")
 
 func notStarted(addr net.Addr, time time.Time) w84.Report {
-	return failed(addr, time, notStartedError)
+	return failed(addr, time, errNotStarted)
 }
 
 func succeeded(addr net.Addr, time time.Time) w84.Report {
@@ -51,6 +51,7 @@ func runSingle(ctx context.Context, ticket int, config w84.Config, addr net.Addr
 	}
 }
 
+// Run invokes connectivity tests.
 func Run(ctx context.Context, config w84.Config, addrs []net.Addr) []w84.Report {
 	reports := make([]w84.Report, len(addrs))
 	now := config.Clock.Now()
@@ -76,7 +77,7 @@ Wait:
 		case r := <-ch:
 			reports[r.ticket] = r.report
 			if r.report.Err() == nil {
-				done += 1
+				done++
 			}
 		case <-ctx1.Done():
 			break Wait

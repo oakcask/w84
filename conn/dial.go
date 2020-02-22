@@ -5,6 +5,9 @@ import (
 	"net"
 )
 
+// Dial calls net.DialContext and immediatelly close connection,
+// then returns nil on success,
+// or an error if DialContext generated error.
 func Dial(ctx context.Context, addr net.Addr) error {
 	d := net.Dialer{}
 

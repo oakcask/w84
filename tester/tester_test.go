@@ -21,7 +21,7 @@ func TestRunSuccessful(t *testing.T) {
 		DialFunc: func(ctx context.Context, addr net.Addr) error {
 			select {
 			case <-ctx.Done():
-				return fmt.Errorf("Test was timed out unexpectedly.")
+				return fmt.Errorf("test was timed out unexpectedly")
 			default:
 				dialledAddrsChan <- addr
 				return nil // which means success
@@ -96,7 +96,7 @@ func TestRunSuccessful(t *testing.T) {
 
 func TestRunFailure(t *testing.T) {
 	dialledAddrsChan := make(chan net.Addr)
-	simulatedError := fmt.Errorf("Simulated connection error.")
+	simulatedError := fmt.Errorf("simulated connection error")
 
 	config := w84.Config{
 		Timeout: time.Duration(1) * time.Second,
