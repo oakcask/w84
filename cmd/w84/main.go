@@ -15,9 +15,9 @@ import (
 )
 
 const (
-	exitCodeOk                      = 0
-	exitCodeConnectivityTestFailure = 1
-	exitCodeNoArguments             = 2
+	exitCodeOk                      int = 0
+	exitCodeConnectivityTestFailure int = 1
+	exitCodeNoArguments             int = 2
 )
 
 var timeoutDefault = time.Duration(15) * time.Second
