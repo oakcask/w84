@@ -2,6 +2,7 @@ package conn
 
 import (
 	"context"
+	"net"
 	"testing"
 	"time"
 
@@ -16,7 +17,7 @@ func TestDialSuccesful(t *testing.T) {
 			t.Logf("Skipping %s test", network)
 			continue
 		}
-		defer listener.Close()
+		defer closeListener(listener)
 
 		ch := make(chan error)
 		defer close(ch)
@@ -31,7 +32,7 @@ func TestDialSuccesful(t *testing.T) {
 		})()
 		go (func() {
 			if conn, _ := listener.Accept(); conn != nil {
-				conn.Close()
+				closeConn(conn)
 			}
 		})()
 
@@ -54,7 +55,7 @@ func TestDialTimeout(t *testing.T) {
 			t.Logf("Skipping %s test", network)
 			continue
 		}
-		defer listener.Close()
+		defer closeListener(listener)
 
 		ch := make(chan error)
 		defer close(ch)
@@ -69,7 +70,7 @@ func TestDialTimeout(t *testing.T) {
 		})()
 		go (func() {
 			if conn, _ := listener.Accept(); conn != nil {
-				conn.Close()
+				closeConn(conn)
 			}
 		})()
 
@@ -82,4 +83,9 @@ func TestDialTimeout(t *testing.T) {
 			}
 		}
 	}
+}
+
+// closeListener closes listener and ignore error.
+func closeListener(listener net.Listener) {
+	_ = listener.Close()
 }

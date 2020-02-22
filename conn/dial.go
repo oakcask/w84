@@ -13,8 +13,13 @@ func Dial(ctx context.Context, addr net.Addr) error {
 
 	conn, e := d.DialContext(ctx, addr.Network(), addr.String())
 	if conn != nil {
-		defer conn.Close()
+		defer closeConn(conn)
 	}
 
 	return e
+}
+
+// closeConn closes connection and ignore error.
+func closeConn(conn net.Conn) {
+	_ = conn.Close()
 }
