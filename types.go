@@ -4,6 +4,7 @@ import (
 	"context"
 	"net"
 	"time"
+
 	"github.com/oakcask/stand"
 )
 
@@ -33,4 +34,3 @@ type Config struct {
 	// DialFunc is connecting method which used within the test process.
 	DialFunc DialFunc
 }
-

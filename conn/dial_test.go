@@ -4,11 +4,12 @@ import (
 	"context"
 	"testing"
 	"time"
+
 	"golang.org/x/net/nettest"
 )
 
 func TestDialSuccesful(t *testing.T) {
-	networks := []string { "tcp", "tcp4", "tcp6", "unix", "unixpacket" }
+	networks := []string{"tcp", "tcp4", "tcp6", "unix", "unixpacket"}
 	for _, network := range networks {
 		listener, err := nettest.NewLocalListener(network)
 		if err != nil {
@@ -37,7 +38,7 @@ func TestDialSuccesful(t *testing.T) {
 		select {
 		case <-ctx.Done():
 			t.Errorf("Dial does not returned within timeout.")
-		case actual := <- ch:
+		case actual := <-ch:
 			if actual != nil {
 				t.Errorf("got %v while expecting nil.", actual)
 			}
@@ -46,7 +47,7 @@ func TestDialSuccesful(t *testing.T) {
 }
 
 func TestDialTimeout(t *testing.T) {
-	networks := []string { "tcp", "tcp4", "tcp6", "unix", "unixpacket" }
+	networks := []string{"tcp", "tcp4", "tcp6", "unix", "unixpacket"}
 	for _, network := range networks {
 		listener, err := nettest.NewLocalListener(network)
 		if err != nil {
@@ -73,9 +74,9 @@ func TestDialTimeout(t *testing.T) {
 		})()
 
 		select {
-		case <-time.After(time.Duration(1)*time.Second):
+		case <-time.After(time.Duration(1) * time.Second):
 			t.Errorf("Dial does not returned within timeout.")
-		case actual := <- ch:
+		case actual := <-ch:
 			if actual == nil {
 				t.Errorf("got nil while expecting non-nil.")
 			}

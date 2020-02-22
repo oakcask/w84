@@ -24,12 +24,12 @@ func (ep EndPoint) String() string {
 	return ep.Address
 }
 
-var addrFamilyPrefixes = []string {
+var addrFamilyPrefixes = []string{
 	"tcp:", "tcp4:", "tcp6:",
 	"udp:", "udp4:", "udp6:",
-	"ip:",  "ip4:",  "ip6:",
+	"ip:", "ip4:", "ip6:",
 	"unix:", "unixgram:", "unixpacket:",
-} 
+}
 
 // ParseEndPoint parses a string and returns
 // EndPoint. Note that this function does not validate

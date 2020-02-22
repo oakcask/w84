@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net"
 	"time"
+
 	"github.com/oakcask/w84"
 )
 
@@ -16,20 +17,19 @@ func notStarted(addr net.Addr, time time.Time) w84.Report {
 
 func succeeded(addr net.Addr, time time.Time) w84.Report {
 	return &report{
-		addr: addr,
-		err: nil,
+		addr:    addr,
+		err:     nil,
 		updated: time,
 	}
 }
 
 func failed(addr net.Addr, time time.Time, e error) w84.Report {
 	return &report{
-		addr: addr,
-		err: e,
+		addr:    addr,
+		err:     e,
 		updated: time,
 	}
 }
-
 
 type singleResult struct {
 	ticket int
@@ -42,7 +42,7 @@ func runSingle(ctx context.Context, ticket int, config w84.Config, addr net.Addr
 		ch <- singleResult{
 			ticket: ticket,
 			report: succeeded(addr, config.Clock.Now()),
-		}	
+		}
 		return
 	}
 	ch <- singleResult{
@@ -58,19 +58,19 @@ func Run(ctx context.Context, config w84.Config, addrs []net.Addr) []w84.Report 
 	for idx, addr := range addrs {
 		reports[idx] = notStarted(addr, now)
 	}
-		
+
 	ch := make(chan singleResult)
-	
+
 	ctx1, cancel := context.WithTimeout(ctx, config.Timeout)
 	defer cancel()
-	
+
 	for idx, addr := range addrs {
 		go runSingle(ctx, idx, config, addr, ch)
 	}
 
 	done := 0
 
-	Wait:
+Wait:
 	for done < len(addrs) {
 		select {
 		case r := <-ch:

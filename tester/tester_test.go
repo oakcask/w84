@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/oakcask/w84"
 	"github.com/oakcask/stand"
+	"github.com/oakcask/w84"
 )
 
 func TestRunSuccessful(t *testing.T) {

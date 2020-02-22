@@ -1,19 +1,20 @@
 package tester
 
 import (
-	"time"
-	"testing"
 	"errors"
+	"testing"
+	"time"
+
 	"github.com/oakcask/w84"
 )
 
 var testReportImplExamples = []struct {
 	in report
-} {
+}{
 	{
 		report{
-			addr: &w84.EndPoint{"tcp", "example.com:80"},
-			err: errors.New("Connection failed."),
+			addr:    &w84.EndPoint{"tcp", "example.com:80"},
+			err:     errors.New("Connection failed."),
 			updated: time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC),
 		},
 	},

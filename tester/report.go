@@ -6,8 +6,8 @@ import (
 )
 
 type report struct {
-	addr net.Addr
-	err error
+	addr    net.Addr
+	err     error
 	updated time.Time
 }
 

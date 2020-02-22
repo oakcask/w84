@@ -5,7 +5,7 @@ import (
 )
 
 func ExampleParseEndPoint() {
-	endPoints := []string {
+	endPoints := []string{
 		"example.com",
 		"tcp:192.168.192.168:80",
 		"udp6:[::1]:51234",
