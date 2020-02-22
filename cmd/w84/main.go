@@ -4,23 +4,23 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"time"
-	"os"
 	"net"
+	"os"
+	"time"
 
+	"github.com/oakcask/stand"
 	"github.com/oakcask/w84"
 	"github.com/oakcask/w84/conn"
-	"github.com/oakcask/stand"
 	"github.com/oakcask/w84/tester"
 )
 
 const (
-	exitCodeOk = 0,
-	exitCodeConnectivityTestFailure = 1,
-	exitCodeNoArguments = 2,
+	exitCodeOk                      = 0
+	exitCodeConnectivityTestFailure = 1
+	exitCodeNoArguments             = 2
 )
 
-var timeoutDefault = time.Duration(15)*time.Second
+var timeoutDefault = time.Duration(15) * time.Second
 var timeout = flag.Duration("timeout", timeoutDefault, "Timeout duration to wait for the connection.")
 var verboseDefault = false
 var verbose = flag.Bool("verbose", verboseDefault, "Verbose: report more about test result.")
@@ -30,7 +30,6 @@ func init() {
 	flag.BoolVar(verbose, "v", verboseDefault, "alias to verbose")
 	flag.Parse()
 }
-
 
 func main() {
 	os.Exit(programMain())
@@ -46,8 +45,8 @@ func programMain() int {
 
 	ctx := context.Background()
 	config := w84.Config{
-		Timeout: *timeout,
-		Clock: stand.SystemClock,
+		Timeout:  *timeout,
+		Clock:    stand.SystemClock,
 		DialFunc: conn.Dial,
 	}
 
